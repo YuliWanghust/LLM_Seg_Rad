@@ -59,7 +59,7 @@ The framework was developed using CT images from the public TotalSegmentator dat
 
 Please download the public CT data directly from the official TotalSegmentator source:
 
-- Download public data from [TotalSegmentator Dataset]([https://drive.google.com/file/d/1FJ0N_Xo3olzAV-oojEkAsbsUgiFsoPdl/view?usp=sharing](https://github.com/wasserth/TotalSegmentator)).
+- Download public data from [TotalSegmentator Dataset](https://github.com/wasserth/TotalSegmentator).
 
 
 
@@ -79,7 +79,7 @@ If you would like to change the dataset split, please modify the `Train.json` an
 
 If you would like to train the model from scratch, you can modify the training code `main.py` and please use the following command:
 
-<pre>python main.py --distributed --use_ssl_pretrained --save_checkpoint --logdir=TextBraTS</pre>
+<pre>python main.py --distributed --use_ssl_pretrained --save_checkpoint --logdir=LLM_Seg</pre>
 
 - The `--use_ssl_pretrained` option utilizes the pre-trained weights from NVIDIA's Swin UNETR model.
 - Download the Swin UNETR pre-trained weights from [Pre-trained weights](https://drive.google.com/file/d/1FJ0N_Xo3olzAV-oojEkAsbsUgiFsoPdl/view?usp=sharing).
