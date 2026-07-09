@@ -24,12 +24,7 @@ LLM-Seg consists of three main stages:
 
 ### Stage 1: Guideline Extraction and Text Annotation
 
-Clinical contouring guidance is extracted from consensus guidelines, including:
-
-- ASTRO pancreas guideline
-- ESTRO pancreas guideline
-- ASTRO clinical practice guideline
-- NRG Oncology International Consensus Contouring Atlas
+Clinical contouring guidance is extracted from consensus guidelines, including: 1) ASTRO pancreas guideline; 2) ESTRO pancreas guideline; 3) ASTRO clinical practice guideline; and 4) NRG Oncology International Consensus Contouring Atlas.
 
 GPT-4o is used to generate structured organ-level text annotation reports, followed by expert review.
 
@@ -42,7 +37,7 @@ The organ-level annotation reports are encoded using BioBERT. The resulting text
 The encoded text features are integrated with CT image features in a 3D segmentation network to guide OAR delineation. The framework is designed to improve segmentation robustness for anatomically complex structures such as the duodenum, stomach, bowel, liver, kidneys, and spinal cord.
 
 <p align="center">
-  <img src="assets/LLM_pipeline.png" alt="LLM-Seg Pipeline" width="400">
+  <img src="assets/LLM_pipeline.png" alt="LLM-Seg Pipeline" width="500">
 </p>
 
 ---
@@ -50,10 +45,7 @@ The encoded text features are integrated with CT image features in a 3D segmenta
 ## Features
 
 - Guideline-informed 3D OAR segmentation for pancreatic SBRT
-- Text-guided multimodal fusion of clinical knowledge and CT imaging
-- GPT-4o-based organ-level guideline extraction
 - BioBERT-based clinical text encoding
-- Swin Transformer-based 3D segmentation backbone
 - Evaluation on public and institutional pancreatic SBRT datasets
 - Support for geometric and dosimetric evaluation
 
@@ -61,9 +53,7 @@ The encoded text features are integrated with CT image features in a 3D segmenta
 
 ## Dataset
 
-The framework was developed using CT images from the public TotalSegmentator dataset and externally validated on an institutional pancreatic SBRT cohort.
-
-Due to data-sharing restrictions, institutional CT scans and clinical treatment plans are not publicly released.
+The framework was developed using CT images from the public TotalSegmentator dataset and externally validated on an institutional pancreatic SBRT cohort. Due to data-sharing restrictions, institutional CT scans and clinical treatment plans are not publicly released.
 
 ### Public Dataset
 
@@ -73,6 +63,7 @@ Please download the public CT data directly from the official TotalSegmentator s
 https://github.com/wasserth/TotalSegmentator
 
 ## Installing Dependencies
+
 Run the following commands to set up the environment:
 <pre>conda env create -f environment.yml 
 pip install git+https://github.com/Project-MONAI/MONAI.git@07de215c </pre>
