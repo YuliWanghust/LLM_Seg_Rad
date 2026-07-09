@@ -79,7 +79,7 @@ If you would like to change the dataset split, please modify the `Train.json` an
 
 If you would like to train the model from scratch, you can modify the training code `main.py` and please use the following command:
 
-<pre>python main.py --distributed --use_ssl_pretrained --save_checkpoint --logdir=LLM-Seg</pre>
+<pre>python main_Panc.py --distributed --use_ssl_pretrained --save_checkpoint --logdir=LLM-Seg</pre>
 
 - The `--use_ssl_pretrained` option utilizes the pre-trained weights from NVIDIA's Swin UNETR model.
 - Download the Swin UNETR pre-trained weights from [Pre-trained weights](https://drive.google.com/file/d/1FJ0N_Xo3olzAV-oojEkAsbsUgiFsoPdl/view?usp=sharing).
@@ -92,6 +92,6 @@ Download the weights from [checkpoint](https://drive.google.com/file/d/147283LL2
 
 After Training, place the weights in your desired directory, then run the `test.py` with following command for inference:
 
-<pre>python test.py --pretrained_dir=/path/to/your/weights/ --exp_name=LLM-Seg</pre>
+<pre>python test_Panc.py --pretrained_dir=/path/to/your/weights/ --exp_name=LLM-Seg</pre>
 
 
