@@ -1,77 +1,67 @@
-# TextBraTS
+# LLM-Seg
 
-A volume-level text-image public dataset with novel text-guided 3D brain tumor segmentation from BraTS challenge.
+A guideline-informed multimodal framework for text-guided 3D organ-at-risk segmentation in pancreatic SBRT.
 
 ---
 
 ## Introduction
 
-**TextBraTS** is an open-access dataset designed to advance research in text-guided 3D brain tumor segmentation. It includes paired multi-modal brain MRI scans and expertly annotated radiology reports, enabling the development and evaluation of multi-modal deep learning models that bridge vision and language in neuro-oncology. Our work has been accepted by MICCAI 2025. The paper is also available on [arxiv:2506.16784](https://arxiv.org/abs/2506.16784).
+**LLM-Seg** is a text-guided 3D segmentation framework designed to improve organ-at-risk (OAR) delineation for pancreatic cancer stereotactic body radiotherapy (SBRT). Unlike conventional image-only auto-segmentation models, LLM-Seg incorporates clinical contouring knowledge from consensus guidelines into a deep learning segmentation pipeline.
 
-![TextBraTS datasample](assets/datasample.PNG)
+The framework uses large language models to extract organ-level contouring guidance from clinical guidelines, encodes the resulting text with BioBERT, and integrates the text features with CT image features in a Swin Transformer-based 3D segmentation network.
+
+This repository provides the implementation of our guideline-informed multimodal segmentation framework for pancreatic SBRT OAR auto-contouring.
+
+![LLM-Seg Overview](assets/overview.png)
+
+---
+
+## Framework Overview
+
+LLM-Seg consists of three main stages:
+
+### Stage 1: Guideline Extraction and Text Annotation
+
+Clinical contouring guidance is extracted from consensus guidelines, including:
+
+- ASTRO pancreas guideline
+- ESTRO pancreas guideline
+- ASTRO clinical practice guideline
+- NRG Oncology International Consensus Contouring Atlas
+
+GPT-4o is used to generate structured organ-level text annotation reports, followed by expert review.
+
+### Stage 2: Text Encoding
+
+The organ-level annotation reports are encoded using BioBERT. The resulting text embeddings are projected into a fixed-length feature representation using a multilayer perceptron (MLP).
+
+### Stage 3: Text-Guided 3D Segmentation
+
+The encoded text features are integrated with CT image features in a 3D segmentation network to guide OAR delineation. The framework is designed to improve segmentation robustness for anatomically complex structures such as the duodenum, stomach, bowel, liver, kidneys, and spinal cord.
+
+---
 
 ## Features
 
-- Multi-modal 3D brain MRI scans with expert-annotated segmentation (T1, T1ce, T2, FLAIR) from BraTS20 challenge training set
-- Structured radiology reports for each case
-- Text-image alignment method for research on multi-modal fusion
+- Guideline-informed 3D OAR segmentation for pancreatic SBRT
+- Text-guided multimodal fusion of clinical knowledge and CT imaging
+- GPT-4o-based organ-level guideline extraction
+- BioBERT-based clinical text encoding
+- Swin Transformer-based 3D segmentation backbone
+- Evaluation on public and institutional pancreatic SBRT datasets
+- Support for geometric and dosimetric evaluation
 
-![TextBraTS Overview](assets/overview.PNG)
-
-## Usage
-
-You can use this dataset for:
-- Developing and benchmarking text-guided segmentation models
-- Evaluating multi-modal fusion algorithms in medical imaging
-- Research in language-driven medical AI
-
-## Installing Dependencies
-Run the following commands to set up the environment:
-<pre>conda env create -f environment.yml 
-pip install git+https://github.com/Project-MONAI/MONAI.git@07de215c </pre>
-If you need to activate the environment, use:
-<pre>conda activate TextBraTS </pre>
+---
 
 ## Dataset
 
-Due to BraTS official guidelines, MRI images must be downloaded directly from the [BraTS 2020 challenge website](https://www.med.upenn.edu/cbica/brats2020/data.html) (training set).
- 
-**Download our text, feature, and prompt files:**  
-You can download our dataset from [Google Drive](https://drive.google.com/file/d/1i1R6_bVY4VbNtxEIQVsiXUSWuVAtgJhg/view?usp=sharing) or [Hugging Face](https://huggingface.co/datasets/Jupitern52/TextBraTS).
-Our provided text reports, feature files, and prompt files are named to match the original BraTS folder IDs exactly. You can set the path and simply merge them with the downloaded MRI data by `merge.py`. 
-<pre>python merge.py</pre>
+The framework was developed using CT images from the public TotalSegmentator dataset and externally validated on an institutional pancreatic SBRT cohort.
 
-If you would like to change the dataset split, please modify the `Train.json` and `Test.json` files accordingly. 
+Due to data-sharing restrictions, institutional CT scans and clinical treatment plans are not publicly released.
 
-## Inference
+### Public Dataset
 
-We provide our pre-trained weights for direct inference and evaluation.  
-Download the weights from [checkpoint](https://drive.google.com/file/d/147283LL2fRDcTYR_vQA-95vbZysjjD1v/view?usp=sharing).
+Please download the public CT data directly from the official TotalSegmentator source:
 
-After downloading, place the weights in your desired directory, then run the `test.py` with following command for inference:
-
-<pre>python test.py --pretrained_dir=/path/to/your/weights/ --exp_name=TextBraTS</pre>
-
-## Training
-
-If you would like to train the model from scratch, you can modify the training code `main.py` and please use the following command:
-
-<pre>python main.py --distributed --use_ssl_pretrained --save_checkpoint --logdir=TextBraTS</pre>
-
-- The `--use_ssl_pretrained` option utilizes the pre-trained weights from NVIDIA's Swin UNETR model.
-- Download the Swin UNETR pre-trained weights from [Pre-trained weights](https://drive.google.com/file/d/1FJ0N_Xo3olzAV-oojEkAsbsUgiFsoPdl/view?usp=sharing).
-- Please place the downloaded weights in the appropriate directory as specified in your configuration or script.
-
-
-## Citation
-
-If you use TextBraTS in your research, please cite:
-
-```bibtex
-@inproceedings{shi2025textbrats,
-  title = {TextBraTS: Text-Guided Volumetric Brain Tumor Segmentation with Innovative Dataset Development and Fusion Module Exploration},
-  author = {Shi, Xiaoyu and Jain, Rahul Kumar and Li, Yinhao and Hou, Ruibo and Cheng, Jingliang and Bai, Jie and Zhao, Guohua and Lin, Lanfen and Xu, Rui and Chen, Yen-wei},
-  booktitle = {Proceedings of the International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI)},
-  year = {2025},
-  note = {to appear}
-}
+```bash
+https://github.com/wasserth/TotalSegmentator
