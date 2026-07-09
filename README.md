@@ -12,7 +12,7 @@ The framework uses large language models to extract organ-level contouring guida
 
 This repository provides the implementation of our guideline-informed multimodal segmentation framework for pancreatic SBRT OAR auto-contouring.
 
-![LLM-Seg Overview](assets/overview.png)
+![LLM-Seg Overview](assets/Main_workflow.png)
 
 ---
 
