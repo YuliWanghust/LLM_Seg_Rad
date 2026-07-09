@@ -13,7 +13,7 @@ The framework uses large language models to extract organ-level contouring guida
 This repository provides the implementation of our guideline-informed multimodal segmentation framework for pancreatic SBRT OAR auto-contouring.
 
 <p align="center">
-  <img src="assets/Main_workflow.png" alt="LLM-Seg Overview" width="500">
+  <img src="assets/Main_workflow.png" alt="LLM-Seg Overview" width="400">
 </p>
 
 ---
@@ -41,6 +41,10 @@ The organ-level annotation reports are encoded using BioBERT. The resulting text
 
 The encoded text features are integrated with CT image features in a 3D segmentation network to guide OAR delineation. The framework is designed to improve segmentation robustness for anatomically complex structures such as the duodenum, stomach, bowel, liver, kidneys, and spinal cord.
 
+<p align="center">
+  <img src="assets/LLM_pipeline.png" alt="LLM-Seg Pipeline" width="400">
+</p>
+
 ---
 
 ## Features
@@ -67,3 +71,40 @@ Please download the public CT data directly from the official TotalSegmentator s
 
 ```bash
 https://github.com/wasserth/TotalSegmentator
+
+## Installing Dependencies
+Run the following commands to set up the environment:
+<pre>conda env create -f environment.yml 
+pip install git+https://github.com/Project-MONAI/MONAI.git@07de215c </pre>
+If you need to activate the environment, use:
+<pre>conda activate TextBraTS </pre>
+
+## Dataset
+
+Due to BraTS official guidelines, MRI images must be downloaded directly from the [BraTS 2020 challenge website](https://www.med.upenn.edu/cbica/brats2020/data.html) (training set).
+ 
+**Download our text, feature, and prompt files:**  
+You can download our dataset from [Google Drive](https://drive.google.com/file/d/1i1R6_bVY4VbNtxEIQVsiXUSWuVAtgJhg/view?usp=sharing) or [Hugging Face](https://huggingface.co/datasets/Jupitern52/TextBraTS).
+Our provided text reports, feature files, and prompt files are named to match the original BraTS folder IDs exactly. You can set the path and simply merge them with the downloaded MRI data by `merge.py`. 
+<pre>python merge.py</pre>
+
+If you would like to change the dataset split, please modify the `Train.json` and `Test.json` files accordingly. 
+
+## Inference
+
+We provide our pre-trained weights for direct inference and evaluation.  
+Download the weights from [checkpoint](https://drive.google.com/file/d/147283LL2fRDcTYR_vQA-95vbZysjjD1v/view?usp=sharing).
+
+After downloading, place the weights in your desired directory, then run the `test.py` with following command for inference:
+
+<pre>python test.py --pretrained_dir=/path/to/your/weights/ --exp_name=TextBraTS</pre>
+
+## Training
+
+If you would like to train the model from scratch, you can modify the training code `main.py` and please use the following command:
+
+<pre>python main.py --distributed --use_ssl_pretrained --save_checkpoint --logdir=TextBraTS</pre>
+
+- The `--use_ssl_pretrained` option utilizes the pre-trained weights from NVIDIA's Swin UNETR model.
+- Download the Swin UNETR pre-trained weights from [Pre-trained weights](https://drive.google.com/file/d/1FJ0N_Xo3olzAV-oojEkAsbsUgiFsoPdl/view?usp=sharing).
+- Please place the downloaded weights in the appropriate directory as specified in your configuration or script.
