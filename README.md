@@ -6,7 +6,7 @@ A guideline-informed multimodal framework for text-guided 3D organ-at-risk segme
 
 ## Introduction
 
-**LLM-Seg** is a text-guided 3D segmentation framework designed to improve organ-at-risk (OAR) delineation for pancreatic cancer stereotactic body radiotherapy (SBRT). Unlike conventional image-only auto-segmentation models, LLM-Seg incorporates clinical contouring knowledge from consensus guidelines into a deep learning segmentation pipeline.
+Our method (**LLM-Seg**) is a text-guided 3D segmentation framework designed to improve organ-at-risk (OAR) delineation for pancreatic cancer stereotactic body radiotherapy (SBRT). Unlike conventional image-only auto-segmentation models, LLM-Seg incorporates clinical contouring knowledge from consensus guidelines into a deep learning segmentation pipeline.
 
 The framework uses large language models to extract organ-level contouring guidance from clinical guidelines, encodes the resulting text with BioBERT, and integrates the text features with CT image features in a Swin Transformer-based 3D segmentation network.
 
