@@ -59,8 +59,11 @@ The framework was developed using CT images from the public TotalSegmentator dat
 
 Please download the public CT data directly from the official TotalSegmentator source:
 
-```bash
-https://github.com/wasserth/TotalSegmentator
+- Download public data from [TotalSegmentator Dataset]([https://drive.google.com/file/d/1FJ0N_Xo3olzAV-oojEkAsbsUgiFsoPdl/view?usp=sharing](https://github.com/wasserth/TotalSegmentator)).
+
+
+
+---
 
 ## Installing Dependencies
 
@@ -68,27 +71,9 @@ Run the following commands to set up the environment:
 <pre>conda env create -f environment.yml 
 pip install git+https://github.com/Project-MONAI/MONAI.git@07de215c </pre>
 If you need to activate the environment, use:
-<pre>conda activate TextBraTS </pre>
-
-## Dataset
-
-Due to BraTS official guidelines, MRI images must be downloaded directly from the [BraTS 2020 challenge website](https://www.med.upenn.edu/cbica/brats2020/data.html) (training set).
- 
-**Download our text, feature, and prompt files:**  
-You can download our dataset from [Google Drive](https://drive.google.com/file/d/1i1R6_bVY4VbNtxEIQVsiXUSWuVAtgJhg/view?usp=sharing) or [Hugging Face](https://huggingface.co/datasets/Jupitern52/TextBraTS).
-Our provided text reports, feature files, and prompt files are named to match the original BraTS folder IDs exactly. You can set the path and simply merge them with the downloaded MRI data by `merge.py`. 
-<pre>python merge.py</pre>
+<pre>conda activate LLM-Seg </pre>
 
 If you would like to change the dataset split, please modify the `Train.json` and `Test.json` files accordingly. 
-
-## Inference
-
-We provide our pre-trained weights for direct inference and evaluation.  
-Download the weights from [checkpoint](https://drive.google.com/file/d/147283LL2fRDcTYR_vQA-95vbZysjjD1v/view?usp=sharing).
-
-After downloading, place the weights in your desired directory, then run the `test.py` with following command for inference:
-
-<pre>python test.py --pretrained_dir=/path/to/your/weights/ --exp_name=TextBraTS</pre>
 
 ## Training
 
@@ -99,3 +84,14 @@ If you would like to train the model from scratch, you can modify the training c
 - The `--use_ssl_pretrained` option utilizes the pre-trained weights from NVIDIA's Swin UNETR model.
 - Download the Swin UNETR pre-trained weights from [Pre-trained weights](https://drive.google.com/file/d/1FJ0N_Xo3olzAV-oojEkAsbsUgiFsoPdl/view?usp=sharing).
 - Please place the downloaded weights in the appropriate directory as specified in your configuration or script.
+
+## Inference
+
+We provide our pre-trained weights for direct inference and evaluation.  
+Download the weights from [checkpoint](https://drive.google.com/file/d/147283LL2fRDcTYR_vQA-95vbZysjjD1v/view?usp=sharing).
+
+After Training, place the weights in your desired directory, then run the `test.py` with following command for inference:
+
+<pre>python test.py --pretrained_dir=/path/to/your/weights/ --exp_name=TextBraTS</pre>
+
+
